@@ -9,11 +9,11 @@ Capybara.run_server = false
 Capybara.current_driver = :webkit
 Capybara.app_host = "http://dniprorada.gov.ua"
 
-module Test
-  class Google
+module Volodya
+  class Slezay
     include Capybara::DSL
 
-    def get_results
+    def vote
       visit '/poll/3-square-renaming-poll'
       choose 'площа Героїв Майдану'
       click_button 'OK'
@@ -21,12 +21,12 @@ module Test
   end
 end
 
-spider = Test::Google.new
+spider = Volodya::Slezay.new
 
 counter = 1
 ARGV[0].to_i.times.each do
   p "#{counter} Huylo"
-  spider.get_results
+  spider.vote
   Capybara.current_session.driver.browser.clear_cookies
 
   sleep(2.0 + (Random.rand(100) / 50.0))
